@@ -352,6 +352,7 @@
         <a href="#education">Education</a> |
         <a href="#skills">Skills</a> |
         <a href="#certificates">Certificates</a> |
+        <a href="#achievements">Achievements</a> |
         <a href="#social">Social Links</a>
     </nav>
 
@@ -397,9 +398,14 @@
                 </div>
                 <div class="edu-box floating-item" style="transition-delay: 0.2s;">
                     <strong>Student Portfolio</strong>
-                    <p>Student Directory using fast api and react<br><br><a
+                    <p>fast api & react<br><br><a
                             href="https://student-directory-psi.vercel.app/" target="_blank"
                             style="color: #ffeb3b; text-decoration: underline; font-weight: bold;">View</a></p>
+                </div>
+                <div class="edu-box floating-item" style="transition-delay: 0.2s;">
+                    <strong>Whatsapp AI Bot</strong>
+                    <p> Node.js setup - CLI tools usage - API key integration - AI model configuration - WhatsApp bot
+                        integration - Debugging logs and error</p>
                 </div>
 
             </div>
@@ -451,6 +457,19 @@
                             style="font-size: 0.75em; font-weight: 400; color: rgba(255, 255, 255, 0.75);">2026</span></strong>
                     <p>CISCO</p>
                 </div>
+            </div>
+        </div>
+
+        <div id="achievements">
+            <h2 class="floating-item">Achievements</h2><br>
+            <div class="education-grid">
+                <div class="edu-box floating-item" style="transition-delay: 0.1s;">
+                    <strong>OpenClaw<span
+                            style="font-size: 0.75em; font-weight: 400; color: rgba(255, 255, 255, 0.75);">2026</span></strong>
+                    <p>successfully installed, configured, and deployed an AI-powered WhatsApp
+                        bot using OpenClaw.</p>
+                </div>
+               
             </div>
         </div>
 
@@ -528,11 +547,11 @@
                 return audioCtx;
             }
 
-            /* Hover sound – short wipe / swoosh */
+            /* Hover sound – quick swipe */
             function playHoverSound() {
                 if (isMuted) return;
                 const ctx = getAudioCtx();
-                const duration = 0.15;
+                const duration = 0.12;
                 const now = ctx.currentTime;
 
                 // White-noise burst
@@ -545,16 +564,17 @@
                 const noise = ctx.createBufferSource();
                 noise.buffer = buffer;
 
-                // Bandpass filter that sweeps upward → wipe feel
+                // Lowpass filter that sweeps downward → swipe feel
                 const filter = ctx.createBiquadFilter();
-                filter.type = 'bandpass';
-                filter.Q.value = 2;
-                filter.frequency.setValueAtTime(400, now);
-                filter.frequency.exponentialRampToValueAtTime(4000, now + duration);
+                filter.type = 'lowpass';
+                filter.Q.value = 1;
+                filter.frequency.setValueAtTime(2500, now);
+                filter.frequency.exponentialRampToValueAtTime(300, now + duration);
 
                 // Gain envelope
                 const gain = ctx.createGain();
-                gain.gain.setValueAtTime(0.18, now);
+                gain.gain.setValueAtTime(0.05, now);
+                gain.gain.linearRampToValueAtTime(0.15, now + duration * 0.2);
                 gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
 
                 noise.connect(filter).connect(gain).connect(ctx.destination);
